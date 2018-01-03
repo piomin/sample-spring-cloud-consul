@@ -1,15 +1,6 @@
-server:  
-  port: ${PORT:8080}
-
 spring:  
   application:
     name: gateway-service
-    
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-    registerWithEureka: false
     
 zuul:
   prefix: /api
@@ -23,6 +14,10 @@ zuul:
     product-service:
       path: /product/**
 
+logging:
+  level:
+    com.netflix: DEBUG
+    
 management:
   security:
     enabled: false

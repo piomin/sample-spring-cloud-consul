@@ -38,15 +38,15 @@ public class AccountApplication {
 	@Bean
 	AccountRepository repository() {
 		AccountRepository repository = new AccountRepository();
-		repository.add(new Account("1234567890", 5000, 1L));
-		repository.add(new Account("1234567891", 5000, 1L));
-		repository.add(new Account("1234567892", 0, 1L));
-		repository.add(new Account("1234567893", 5000, 2L));
-		repository.add(new Account("1234567894", 0, 2L));
-		repository.add(new Account("1234567895", 5000, 2L));
-		repository.add(new Account("1234567896", 0, 3L));
-		repository.add(new Account("1234567897", 5000, 3L));
-		repository.add(new Account("1234567898", 5000, 3L));
+		repository.add(new Account("1234567890", 50000, 1L));
+		repository.add(new Account("1234567891", 50000, 1L));
+		repository.add(new Account("1234567892", 50000, 1L));
+		repository.add(new Account("1234567893", 50000, 2L));
+		repository.add(new Account("1234567894", 50000, 2L));
+		repository.add(new Account("1234567895", 50000, 2L));
+		repository.add(new Account("1234567896", 50000, 3L));
+		repository.add(new Account("1234567897", 50000, 3L));
+		repository.add(new Account("1234567898", 50000, 3L));
 		return repository;
 	}
 
