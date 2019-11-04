@@ -11,7 +11,6 @@ import pl.piomin.services.customer.model.CustomerType;
 import pl.piomin.services.customer.repository.CustomerRepository;
 
 @SpringBootApplication
-@EnableDiscoveryClient
 @EnableFeignClients
 public class CustomerApplication {
 	
@@ -22,11 +21,10 @@ public class CustomerApplication {
 	@Bean
 	public CommonsRequestLoggingFilter requestLoggingFilter() {
 	    CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
-	    loggingFilter.setAfterMessagePrefix("");
-//	    loggingFilter.setIncludePayload(true);
-//	    loggingFilter.setIncludeHeaders(true);
-//	    loggingFilter.setMaxPayloadLength(1000);
-//	    loggingFilter.setAfterMessagePrefix("REQ:");
+	    loggingFilter.setIncludePayload(true);
+	    loggingFilter.setIncludeHeaders(true);
+	    loggingFilter.setMaxPayloadLength(1000);
+	    loggingFilter.setAfterMessagePrefix("REQ:");
 	    return loggingFilter;
 	}
 	

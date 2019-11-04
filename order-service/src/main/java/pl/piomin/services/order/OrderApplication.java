@@ -9,7 +9,6 @@ import org.springframework.web.filter.CommonsRequestLoggingFilter;
 import pl.piomin.services.order.repository.OrderRepository;
 
 @SpringBootApplication
-@EnableDiscoveryClient
 @EnableFeignClients
 public class OrderApplication {
 	

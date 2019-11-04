@@ -11,15 +11,8 @@ import pl.piomin.services.account.model.Account;
 import pl.piomin.services.account.repository.AccountRepository;
 
 @SpringBootApplication
-@EnableDiscoveryClient
 public class AccountApplication {
 
-	@LoadBalanced
-	@Bean
-	RestTemplate restTemplate() {
-		return new RestTemplate();
-	}
-	
 	public static void main(String[] args) {
 		SpringApplication.run(AccountApplication.class);
 	}

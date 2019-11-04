@@ -13,15 +13,8 @@ import pl.piomin.services.product.model.Product;
 import pl.piomin.services.product.repository.ProductRepository;
 
 @SpringBootApplication
-@EnableDiscoveryClient
 public class ProductApplication {
 
-	@LoadBalanced
-	@Bean
-	RestTemplate restTemplate() {
-		return new RestTemplate();
-	}
-	
 	public static void main(String[] args) {
 		SpringApplication.run(ProductApplication.class, args);
 	}
