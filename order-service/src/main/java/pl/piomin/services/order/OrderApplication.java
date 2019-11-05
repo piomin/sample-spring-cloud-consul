@@ -1,12 +1,12 @@
 package pl.piomin.services.order;
 
+import pl.piomin.services.order.repository.OrderRepository;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
-import pl.piomin.services.order.repository.OrderRepository;
 
 @SpringBootApplication
 @EnableFeignClients
@@ -24,8 +24,6 @@ public class OrderApplication {
 	@Bean
 	public CommonsRequestLoggingFilter requestLoggingFilter() {
 	    CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
-//	    loggingFilter.setIncludeClientInfo(true);
-//	    loggingFilter.setIncludeQueryString(true);
 	    loggingFilter.setIncludePayload(true);
 	    loggingFilter.setIncludeHeaders(true);
 	    loggingFilter.setMaxPayloadLength(1000);
