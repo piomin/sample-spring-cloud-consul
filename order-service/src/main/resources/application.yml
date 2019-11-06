@@ -14,11 +14,15 @@ logging:
 ---
 spring:
   profiles: zone1
-server:  
-  port: ${PORT:8090}
+  cloud:
+    consul:
+      discovery:
+        instanceZone: zone1
 
 ---
 spring:
   profiles: zone2
-server:  
-  port: ${PORT:9090}
+  cloud:
+    consul:
+      discovery:
+        instanceZone: zone2
