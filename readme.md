@@ -27,4 +27,4 @@ When running sample applications we can test more advanced scenario. We may leve
 <img src="https://piotrminkowski.files.wordpress.com/2019/11/microservices-consul-2.png" title="Architecture"><br/>
 
 ## Description
-Detailed description can be found here: [Microservices with Spring Boot, Spring Cloud Gateway and Consul Cluster](https://piotrminkowski.wordpress.com/2019/11/06/microservices-with-spring-boot-spring-cloud-gateway-and-consul-cluster/)
+Detailed description can be found here: [Microservices with Spring Boot, Spring Cloud Gateway and Consul Cluster](https://piotrminkowski.com/2019/11/06/microservices-with-spring-boot-spring-cloud-gateway-and-consul-cluster/)
