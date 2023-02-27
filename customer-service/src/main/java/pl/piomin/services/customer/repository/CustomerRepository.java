@@ -1,11 +1,10 @@
 package pl.piomin.services.customer.repository;
 
+import pl.piomin.services.customer.model.Customer;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-
-import pl.piomin.services.customer.model.Customer;
 
 public class CustomerRepository {
 
@@ -23,11 +22,10 @@ public class CustomerRepository {
 	}
 	
 	public Customer findById(Long id) {
-		Optional<Customer> customer = customers.stream().filter(p -> p.getId().equals(id)).findFirst();
-		if (customer.isPresent())
-			return customer.get();
-		else
-			return null;
+		return customers.stream()
+				.filter(p -> p.getId().equals(id))
+				.findFirst()
+				.orElseThrow();
 	}
 	
 	public void delete(Long id) {

@@ -23,11 +23,10 @@ public class AccountRepository {
 	}
 	
 	public Account findById(Long id) {
-		Optional<Account> account = accounts.stream().filter(a -> a.getId().equals(id)).findFirst();
-		if (account.isPresent())
-			return account.get();
-		else
-			return null;
+		return accounts.stream()
+				.filter(a -> a.getId().equals(id))
+				.findFirst()
+				.orElseThrow();
 	}
 	
 	public void delete(Long id) {

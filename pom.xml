@@ -7,6 +7,9 @@
   
   	<properties>
 		<java.version>11</java.version>
+		<sonar.projectKey>piomin_sample-spring-cloud-consul</sonar.projectKey>
+		<sonar.organization>piomin</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 
 	<parent>
