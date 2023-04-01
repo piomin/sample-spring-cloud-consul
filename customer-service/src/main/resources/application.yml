@@ -12,16 +12,19 @@ logging:
     
 ---
 spring:
-  profiles: zone1
   cloud:
     consul:
       discovery:
         instanceZone: zone1
-
+  config:
+    activate:
+      on-profile: zone1
 ---
 spring:
-  profiles: zone2
   cloud:
     consul:
       discovery:
         instanceZone: zone2
+  config:
+    activate:
+      on-profile: zone2

@@ -3,7 +3,7 @@ spring:
     name: gateway-service
   cloud:
     consul:
-      host: 192.168.99.100
+      host: localhost
       port: 8500
       
 logging:
@@ -12,7 +12,6 @@ logging:
     
 ---
 spring:
-  profiles: zone1
   cloud:
     consul:
       discovery:
@@ -20,6 +19,9 @@ spring:
         register: false
         registerHealthCheck: false
         tags: zone=zone1
+  config:
+    activate:
+      on-profile: zone1
 server:  
   port: ${PORT:8080}
 
@@ -33,5 +35,8 @@ spring:
         register: false
         registerHealthCheck: false
         tags: zone=zone2
+  config:
+    activate:
+      on-profile: zone1
 server:  
   port: ${PORT:9080}
