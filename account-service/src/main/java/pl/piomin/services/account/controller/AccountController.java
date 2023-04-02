@@ -31,7 +31,7 @@ public class AccountController {
 	@Autowired
 	AccountRepository repository;
 
-	@PostMapping
+	@PostMapping("/")
 	public Account add(@RequestBody Account account) {
 		return repository.add(account);
 	}

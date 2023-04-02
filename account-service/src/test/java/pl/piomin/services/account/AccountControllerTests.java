@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.consul.ConsulContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -30,6 +32,13 @@ public class AccountControllerTests {
     @BeforeAll
     static void init() {
         System.setProperty("spring.cloud.consul.port", consulContainer.getFirstMappedPort().toString());
+        System.setProperty("spring.config.import", "optional:consul:localhost:" + consulContainer.getFirstMappedPort());
+    }
+
+    @DynamicPropertySource
+    static void init(DynamicPropertyRegistry registry) {
+        registry.add("spring.cloud.consul.port", consulContainer::getFirstMappedPort);
+        registry.add("spring.config.import", () -> "optional:consul:localhost:" + consulContainer.getFirstMappedPort());
     }
 
     @Test

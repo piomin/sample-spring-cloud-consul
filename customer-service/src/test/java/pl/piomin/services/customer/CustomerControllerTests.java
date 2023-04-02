@@ -28,7 +28,6 @@ import static io.specto.hoverfly.junit.dsl.ResponseCreators.success;
 @ExtendWith(HoverflyExtension.class)
 public class CustomerControllerTests {
 
-
     @Autowired
     TestRestTemplate restTemplate;
 
@@ -39,6 +38,7 @@ public class CustomerControllerTests {
     @BeforeAll
     static void init() {
         System.setProperty("spring.cloud.consul.port", consulContainer.getFirstMappedPort().toString());
+        System.setProperty("spring.config.import", "optional:consul:localhost:" + consulContainer.getFirstMappedPort());
     }
 
     @Test
