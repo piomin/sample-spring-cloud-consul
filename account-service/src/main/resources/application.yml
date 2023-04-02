@@ -5,6 +5,8 @@ spring:
     consul:
       host: localhost
       port: 8500
+  config:
+    import: optional:consul:localhost:8500
   output.ansi.enabled: ALWAYS
 
 logging:

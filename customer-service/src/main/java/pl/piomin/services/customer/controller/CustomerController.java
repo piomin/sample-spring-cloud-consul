@@ -33,7 +33,7 @@ public class CustomerController {
 	@Autowired
 	CustomerRepository repository;
 	
-	@PostMapping
+	@PostMapping("/")
 	public Customer add(@RequestBody Customer customer) {
 		return repository.add(customer);
 	}
