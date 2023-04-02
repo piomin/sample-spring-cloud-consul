@@ -45,7 +45,7 @@ public class OrderController {
 	@Autowired
 	ProductClient productClient;
 	
-	@PostMapping
+	@PostMapping("/")
 	public Order prepare(@RequestBody Order order) throws JsonProcessingException {
 		int price = 0;
 		List<Product> products = productClient.findByIds(order.getProductIds());

@@ -63,15 +63,17 @@ public class CustomerControllerTests {
         assertNotNull(c.getId());
     }
 
-//    @Test
+    @Test
     void findByIdWithAccounts(Hoverfly hoverfly) {
         hoverfly.simulate(
-                dsl(service("http://account-service:8080")
+                dsl(service("http://account-service")
                         .get("/customer/1")
-                        .willReturn(success().body("[{\"id\":\"1\"}]")))
+                        .willReturn(success().body("[{\"id\":\"1\"}]").header("Content-Type", "application/json")))
         );
-        Customer[] customers = restTemplate.getForObject("/withAccounts/{id}", Customer[].class, 1L);
-        assertTrue(customers.length > 0);
+        Customer customer = restTemplate.getForObject("/withAccounts/{id}", Customer.class, 1L);
+        assertNotNull(customer);
+        assertNotNull(customer.getId());
+        assertEquals(1, customer.getAccounts().size());
     }
     
 }
