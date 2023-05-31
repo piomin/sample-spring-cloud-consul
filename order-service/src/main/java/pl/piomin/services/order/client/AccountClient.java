@@ -8,7 +8,7 @@ import pl.piomin.services.order.model.Account;
 @FeignClient(name = "account-service")
 public interface AccountClient {
 
-	@PutMapping("/withdraw/{accountId}/{amount}")
-	Account withdraw(@PathVariable("accountId") Long id, @PathVariable("amount") int amount);
+    @PutMapping("/withdraw/{accountId}/{amount}")
+    Account withdraw(@PathVariable("accountId") Long id, @PathVariable("amount") int amount);
 
 }

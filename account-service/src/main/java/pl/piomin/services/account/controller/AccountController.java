@@ -24,52 +24,52 @@ import pl.piomin.services.account.repository.AccountRepository;
 @RestController
 public class AccountController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(AccountController.class);
-	
-	private ObjectMapper mapper = new ObjectMapper();
-	
-	@Autowired
-	AccountRepository repository;
+    private static final Logger LOGGER = LoggerFactory.getLogger(AccountController.class);
 
-	@PostMapping("/")
-	public Account add(@RequestBody Account account) {
-		return repository.add(account);
-	}
+    private ObjectMapper mapper = new ObjectMapper();
 
-	@PutMapping
-	public Account update(@RequestBody Account account) {
-		return repository.update(account);
-	}
+    @Autowired
+    AccountRepository repository;
 
-	@PutMapping("/withdraw/{id}/{amount}")
-	public Account withdraw(@PathVariable("id") Long id, @PathVariable("amount") int amount) throws JsonProcessingException {
-		Account account = repository.findById(id);
-		if (amount > account.getBalance())
-			throw new BalanceNotEnoughException("Not enough funds: id=" + id + ", amount=" + amount);
-		LOGGER.info("Account found: {}", mapper.writeValueAsString(account));
-		account.setBalance(account.getBalance() - amount);
-		LOGGER.info("Current balance: {}", mapper.writeValueAsString(Collections.singletonMap("balance", account.getBalance())));
-		return repository.update(account);
-	}
+    @PostMapping("/")
+    public Account add(@RequestBody Account account) {
+        return repository.add(account);
+    }
 
-	@GetMapping("/{id}")
-	public Account findById(@PathVariable("id") Long id) {
-		return repository.findById(id);
-	}
+    @PutMapping
+    public Account update(@RequestBody Account account) {
+        return repository.update(account);
+    }
 
-	@GetMapping("/customer/{customerId}")
-	public List<Account> findByCustomerId(@PathVariable("customerId") Long customerId) {
-		return repository.findByCustomer(customerId);
-	}
+    @PutMapping("/withdraw/{id}/{amount}")
+    public Account withdraw(@PathVariable("id") Long id, @PathVariable("amount") int amount) throws JsonProcessingException {
+        Account account = repository.findById(id);
+        if (amount > account.getBalance())
+            throw new BalanceNotEnoughException("Not enough funds: id=" + id + ", amount=" + amount);
+        LOGGER.info("Account found: {}", mapper.writeValueAsString(account));
+        account.setBalance(account.getBalance() - amount);
+        LOGGER.info("Current balance: {}", mapper.writeValueAsString(Collections.singletonMap("balance", account.getBalance())));
+        return repository.update(account);
+    }
 
-	@PostMapping("/ids")
-	public List<Account> find(@RequestBody List<Long> ids) {
-		return repository.find(ids);
-	}
+    @GetMapping("/{id}")
+    public Account findById(@PathVariable("id") Long id) {
+        return repository.findById(id);
+    }
 
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Long id) {
-		repository.delete(id);
-	}
+    @GetMapping("/customer/{customerId}")
+    public List<Account> findByCustomerId(@PathVariable("customerId") Long customerId) {
+        return repository.findByCustomer(customerId);
+    }
+
+    @PostMapping("/ids")
+    public List<Account> find(@RequestBody List<Long> ids) {
+        return repository.find(ids);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") Long id) {
+        repository.delete(id);
+    }
 
 }

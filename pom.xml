@@ -1,41 +1,42 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>pl.piomin.services</groupId>
-  <artifactId>sample-spring-cloud-consul</artifactId>
-  <version>1.1</version>
-  <packaging>pom</packaging>
-  
-  	<properties>
-		<java.version>17</java.version>
-		<sonar.projectKey>piomin_sample-spring-cloud-consul</sonar.projectKey>
-		<sonar.organization>piomin</sonar.organization>
-		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-	</properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>pl.piomin.services</groupId>
+    <artifactId>sample-spring-cloud-consul</artifactId>
+    <version>1.1</version>
+    <packaging>pom</packaging>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.0</version>
-	</parent>
+    <properties>
+        <java.version>17</java.version>
+        <sonar.projectKey>piomin_sample-spring-cloud-consul</sonar.projectKey>
+        <sonar.organization>piomin</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    </properties>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>2022.0.3</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.1.0</version>
+    </parent>
 
-	<modules>
-		<module>order-service</module>
-		<module>account-service</module>
-		<module>customer-service</module>
-		<module>product-service</module>
-		<module>gateway-service</module>
-	</modules>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2022.0.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <modules>
+        <module>order-service</module>
+        <module>account-service</module>
+        <module>customer-service</module>
+        <module>product-service</module>
+        <module>gateway-service</module>
+    </modules>
 
 </project>

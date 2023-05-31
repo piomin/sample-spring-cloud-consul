@@ -24,47 +24,47 @@ import pl.piomin.services.customer.repository.CustomerRepository;
 @RestController
 public class CustomerController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(CustomerController.class);
-	
-	private ObjectMapper mapper = new ObjectMapper();
-	
-	@Autowired
-	AccountClient accountClient;
-	@Autowired
-	CustomerRepository repository;
-	
-	@PostMapping("/")
-	public Customer add(@RequestBody Customer customer) {
-		return repository.add(customer);
-	}
-	
-	@PutMapping
-	public Customer update(@RequestBody Customer customer) {
-		return repository.update(customer);
-	}
-	
-	@GetMapping("/{id}")
-	public Customer findById(@PathVariable("id") Long id) {
-		return repository.findById(id);
-	}
-	
-	@GetMapping("/withAccounts/{id}")
-	public Customer findByIdWithAccounts(@PathVariable("id") Long id) throws JsonProcessingException {
-		List<Account> accounts = accountClient.findByCustomer(id);
-		LOGGER.info("Accounts found: {}", mapper.writeValueAsString(accounts));
-		Customer c = repository.findById(id);
-		c.setAccounts(accounts);
-		return c;
-	}
-	
-	@PostMapping("/ids")
-	public List<Customer> find(@RequestBody List<Long> ids) {
-		return repository.find(ids);
-	}
-	
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Long id) {
-		repository.delete(id);
-	}
-	
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomerController.class);
+
+    private ObjectMapper mapper = new ObjectMapper();
+
+    @Autowired
+    AccountClient accountClient;
+    @Autowired
+    CustomerRepository repository;
+
+    @PostMapping("/")
+    public Customer add(@RequestBody Customer customer) {
+        return repository.add(customer);
+    }
+
+    @PutMapping
+    public Customer update(@RequestBody Customer customer) {
+        return repository.update(customer);
+    }
+
+    @GetMapping("/{id}")
+    public Customer findById(@PathVariable("id") Long id) {
+        return repository.findById(id);
+    }
+
+    @GetMapping("/withAccounts/{id}")
+    public Customer findByIdWithAccounts(@PathVariable("id") Long id) throws JsonProcessingException {
+        List<Account> accounts = accountClient.findByCustomer(id);
+        LOGGER.info("Accounts found: {}", mapper.writeValueAsString(accounts));
+        Customer c = repository.findById(id);
+        c.setAccounts(accounts);
+        return c;
+    }
+
+    @PostMapping("/ids")
+    public List<Customer> find(@RequestBody List<Long> ids) {
+        return repository.find(ids);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") Long id) {
+        repository.delete(id);
+    }
+
 }

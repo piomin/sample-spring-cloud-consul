@@ -11,24 +11,24 @@ import org.springframework.web.filter.CommonsRequestLoggingFilter;
 @SpringBootApplication
 @EnableFeignClients
 public class OrderApplication {
-	
-	public static void main(String[] args) {
-		SpringApplication.run(OrderApplication.class, args);
-	}
-	
-	@Bean
-	OrderRepository repository() {
-		return new OrderRepository();
-	}
 
-	@Bean
-	public CommonsRequestLoggingFilter requestLoggingFilter() {
-	    CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
-	    loggingFilter.setIncludePayload(true);
-	    loggingFilter.setIncludeHeaders(true);
-	    loggingFilter.setMaxPayloadLength(1000);
-	    loggingFilter.setAfterMessagePrefix("REQ:");
-	    return loggingFilter;
-	}
-	
+    public static void main(String[] args) {
+        SpringApplication.run(OrderApplication.class, args);
+    }
+
+    @Bean
+    OrderRepository repository() {
+        return new OrderRepository();
+    }
+
+    @Bean
+    public CommonsRequestLoggingFilter requestLoggingFilter() {
+        CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
+        loggingFilter.setIncludePayload(true);
+        loggingFilter.setIncludeHeaders(true);
+        loggingFilter.setMaxPayloadLength(1000);
+        loggingFilter.setAfterMessagePrefix("REQ:");
+        return loggingFilter;
+    }
+
 }

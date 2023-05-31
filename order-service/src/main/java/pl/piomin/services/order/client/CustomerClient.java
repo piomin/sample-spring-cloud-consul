@@ -8,7 +8,7 @@ import pl.piomin.services.order.model.Customer;
 @FeignClient(name = "customer-service")
 public interface CustomerClient {
 
-	@GetMapping("/withAccounts/{customerId}")
-	Customer findByIdWithAccounts(@PathVariable("customerId") Long customerId);
-	
+    @GetMapping("/withAccounts/{customerId}")
+    Customer findByIdWithAccounts(@PathVariable("customerId") Long customerId);
+
 }
