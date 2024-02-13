@@ -7,7 +7,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <java.version>20</java.version>
+        <java.version>21</java.version>
         <sonar.projectKey>piomin_sample-spring-cloud-consul</sonar.projectKey>
         <sonar.organization>piomin</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -16,7 +16,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.4</version>
+        <version>3.2.2</version>
     </parent>
 
     <dependencyManagement>
@@ -24,7 +24,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>2022.0.5</version>
+                <version>2023.0.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
