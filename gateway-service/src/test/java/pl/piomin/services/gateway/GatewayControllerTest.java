@@ -2,9 +2,9 @@ package pl.piomin.services.gateway;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.test.web.servlet.client.RestTestClient;
+import org.springframework.web.context.WebApplicationContext;
 import org.testcontainers.consul.ConsulContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -18,11 +18,15 @@ import java.util.Random;
 @Testcontainers
 public class GatewayControllerTest {
 
-    @Autowired
-    TestRestTemplate template;
+    RestTestClient restClient;
+
+    public GatewayControllerTest(WebApplicationContext context) {
+        this.restClient = RestTestClient.bindToApplicationContext(context)
+                .build();
+    }
 
     @Container
-    static ConsulContainer consulContainer = new ConsulContainer("consul:1.14")
+    static ConsulContainer consulContainer = new ConsulContainer("consul:1.15")
             .withConsulCommand("kv put config/customer-service test=abc");
 
     @BeforeAll
@@ -44,9 +48,15 @@ public class GatewayControllerTest {
             Order order = new Order();
             order.setCustomerId((long) r.nextInt(3) + 1);
             order.setProductIds(Arrays.asList(new Long[]{(long) r.nextInt(10) + 1, (long) r.nextInt(10) + 1}));
-            order = template.postForObject("/api/order", order, Order.class);
+            order = restClient.post().uri("/api/order")
+                    .body(order)
+                    .exchange()
+                    .returnResult(Order.class)
+                    .getResponseBody();
             if (order.getStatus() != OrderStatus.REJECTED) {
-                template.put("/api/order/{id}", null, order.getId());
+                restClient.put().uri("/api/order/{id}", order.getId())
+                        .exchange()
+                        .expectStatus().is2xxSuccessful();
             }
         } catch (Exception e) {
 
