@@ -13,13 +13,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import pl.piomin.services.customer.client.AccountClient;
 import pl.piomin.services.customer.model.Account;
 import pl.piomin.services.customer.model.Customer;
 import pl.piomin.services.customer.repository.CustomerRepository;
+import tools.jackson.databind.ObjectMapper;
 
 @RestController
 public class CustomerController {
@@ -49,7 +47,7 @@ public class CustomerController {
     }
 
     @GetMapping("/withAccounts/{id}")
-    public Customer findByIdWithAccounts(@PathVariable("id") Long id) throws JsonProcessingException {
+    public Customer findByIdWithAccounts(@PathVariable("id") Long id) {
         List<Account> accounts = accountClient.findByCustomer(id);
         LOGGER.info("Accounts found: {}", mapper.writeValueAsString(accounts));
         Customer c = repository.findById(id);

@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import pl.piomin.services.product.model.Product;
 import pl.piomin.services.product.repository.ProductRepository;
+import tools.jackson.databind.ObjectMapper;
 
 @RestController
 public class ProductController {
@@ -46,7 +44,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("/ids")
-	public List<Product> find(@RequestBody List<Long> ids) throws JsonProcessingException {
+	public List<Product> find(@RequestBody List<Long> ids) {
 		List<Product> products = repository.find(ids);
 		LOGGER.info("Products found: {}", mapper.writeValueAsString(Collections.singletonMap("count", products.size())));
 		return products;
