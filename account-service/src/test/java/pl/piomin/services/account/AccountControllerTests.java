@@ -3,6 +3,8 @@ package pl.piomin.services.account;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.client.RestTestClient;
 import org.springframework.web.context.WebApplicationContext;
@@ -17,14 +19,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
+@AutoConfigureRestTestClient
 public class AccountControllerTests {
 
+    @Autowired
     RestTestClient restClient;
-
-    public AccountControllerTests(WebApplicationContext context) {
-        this.restClient = RestTestClient.bindToApplicationContext(context)
-                .build();
-    }
 
     @Container
     static ConsulContainer consulContainer = new ConsulContainer("consul:1.15")
