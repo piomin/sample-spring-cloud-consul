@@ -14,12 +14,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import pl.piomin.services.account.exception.BalanceNotEnoughException;
 import pl.piomin.services.account.model.Account;
 import pl.piomin.services.account.repository.AccountRepository;
+import tools.jackson.databind.ObjectMapper;
 
 @RestController
 public class AccountController {
@@ -42,7 +40,7 @@ public class AccountController {
     }
 
     @PutMapping("/withdraw/{id}/{amount}")
-    public Account withdraw(@PathVariable("id") Long id, @PathVariable("amount") int amount) throws JsonProcessingException {
+    public Account withdraw(@PathVariable("id") Long id, @PathVariable("amount") int amount) {
         Account account = repository.findById(id);
         if (amount > account.getBalance())
             throw new BalanceNotEnoughException("Not enough funds: id=" + id + ", amount=" + amount);

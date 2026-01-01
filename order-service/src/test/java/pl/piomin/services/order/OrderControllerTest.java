@@ -5,34 +5,38 @@ import io.specto.hoverfly.junit5.HoverflyExtension;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.test.web.servlet.client.RestTestClient;
+import org.springframework.web.context.WebApplicationContext;
 import org.testcontainers.consul.ConsulContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import pl.piomin.services.order.model.Order;
 import pl.piomin.services.order.model.OrderStatus;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import static io.specto.hoverfly.junit.core.SimulationSource.dsl;
 import static io.specto.hoverfly.junit.dsl.HoverflyDsl.service;
 import static io.specto.hoverfly.junit.dsl.ResponseCreators.success;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
 @ExtendWith(HoverflyExtension.class)
 public class OrderControllerTest {
 
-    @Autowired
-    TestRestTemplate template;
+    RestTestClient restClient;
+
+    public OrderControllerTest(WebApplicationContext context) {
+        this.restClient = RestTestClient.bindToApplicationContext(context)
+                .build();
+    }
 
     @Container
-    static ConsulContainer consulContainer = new ConsulContainer("consul:1.14")
+    static ConsulContainer consulContainer = new ConsulContainer("consul:1.15")
             .withConsulCommand("kv put config/order-service test=abc");
 
     @BeforeAll
@@ -79,12 +83,17 @@ public class OrderControllerTest {
         Order order = new Order();
         order.setCustomerId(1L);
         order.setProductIds(List.of(1L));
-        order = template.postForObject("/", order, Order.class);
+        order = restClient.post().body(order)
+                .exchange()
+                .returnResult(Order.class)
+                .getResponseBody();
         assertNotNull(order);
         assertNotNull(order.getId());
         assertNotSame(order.getStatus(), OrderStatus.REJECTED);
 
-        template.put("/{id}", null, order.getId());
+        restClient.put().uri("{id}", order.getId())
+                .exchange()
+                .expectStatus().is2xxSuccessful();
     }
 
 }

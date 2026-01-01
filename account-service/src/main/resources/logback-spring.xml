@@ -20,32 +20,8 @@
 			<pattern>%d{HH:mm:ss.SSS} %-5level %msg%n</pattern>
 		</encoder>
 	</appender>
-	<appender name="STASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-		<destination>192.168.99.100:5000</destination>
-		<encoder
-			class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-			<providers>
-				<mdc />
-				<context />
-				<logLevel />
-				<loggerName />
-				<pattern>
-					<pattern>
-						{
-						"appName": "account-service"
-						}
-					</pattern>
-				</pattern>
-				<threadName />
-				<message />
-				<logstashMarkers />
-				<stackTrace />
-			</providers>
-		</encoder>
-	</appender>
 	<root level="INFO">
 		<appender-ref ref="CONSOLE" />
 		<appender-ref ref="FILE" />
-		<appender-ref ref="STASH" />
 	</root>
 </configuration>

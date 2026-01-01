@@ -4,8 +4,9 @@
     <parent>
         <groupId>pl.piomin.services</groupId>
         <artifactId>sample-spring-cloud-consul</artifactId>
-        <version>1.1</version>
+        <version>1.2</version>
     </parent>
+
     <artifactId>gateway-service</artifactId>
 
     <properties>
@@ -15,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
+            <artifactId>spring-cloud-starter-gateway-server-webflux</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -33,13 +34,13 @@
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>1.21.4</version>
+            <version>${testcontainers.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>consul</artifactId>
-            <version>1.21.4</version>
+            <version>${testcontainers.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -21,7 +21,6 @@
 		</encoder>
 	</appender>
 	<appender name="STASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-		<destination>192.168.99.100:5000</destination>
 		<encoder
 			class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
 			<providers>
