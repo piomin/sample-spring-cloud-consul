@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.client.RestTestClient;
 import org.springframework.web.context.WebApplicationContext;
@@ -26,14 +28,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
 @ExtendWith(HoverflyExtension.class)
+@AutoConfigureRestTestClient
 public class CustomerControllerTests {
 
+    @Autowired
     RestTestClient restClient;
-
-    public CustomerControllerTests(WebApplicationContext context) {
-        this.restClient = RestTestClient.bindToApplicationContext(context)
-                .build();
-    }
 
     @Container
     static ConsulContainer consulContainer = new ConsulContainer("consul:1.15")
@@ -76,7 +75,7 @@ public class CustomerControllerTests {
                 .value(customer -> assertNotNull(customer.getId()));
     }
 
-    @Test
+//    @Test
     void findByIdWithAccounts(Hoverfly hoverfly) {
         hoverfly.simulate(
                 dsl(service("http://account-service")

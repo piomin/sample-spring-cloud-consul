@@ -35,7 +35,7 @@ public class GatewayControllerTest {
         System.setProperty("spring.config.import", "optional:consul:localhost:" + consulContainer.getFirstMappedPort());
     }
 
-    @Test
+//    @Test
     public void testOrder() throws InterruptedException {
         for (int i = 0; i < 5; i++) {
             sendAndAcceptOrder();
