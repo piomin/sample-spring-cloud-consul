@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import pl.piomin.services.order.client.AccountClient;
 import pl.piomin.services.order.client.CustomerClient;
 import pl.piomin.services.order.client.ProductClient;
@@ -27,6 +24,7 @@ import pl.piomin.services.order.model.Order;
 import pl.piomin.services.order.model.OrderStatus;
 import pl.piomin.services.order.model.Product;
 import pl.piomin.services.order.repository.OrderRepository;
+import tools.jackson.databind.ObjectMapper;
 
 @RestController
 public class OrderController {
@@ -51,7 +49,7 @@ public class OrderController {
     }
 
     @PostMapping("/")
-    public Order prepare(@RequestBody Order order) throws JsonProcessingException {
+    public Order prepare(@RequestBody Order order) {
         int price = 0;
         List<Product> products = productClient.findByIds(order.getProductIds());
         LOGGER.info("Products found: {}", mapper.writeValueAsString(products));
@@ -76,7 +74,7 @@ public class OrderController {
     }
 
     @PutMapping("/{id}")
-    public Order accept(@PathVariable Long id) throws JsonProcessingException {
+    public Order accept(@PathVariable Long id) {
         final Order order = repository.findById(id);
         LOGGER.info("Order found: {}", mapper.writeValueAsString(order));
         accountClient.withdraw(order.getAccountId(), order.getPrice());
