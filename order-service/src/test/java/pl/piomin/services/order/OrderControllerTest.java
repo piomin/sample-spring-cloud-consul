@@ -14,7 +14,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import pl.piomin.services.order.model.Order;
 import pl.piomin.services.order.model.OrderStatus;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 

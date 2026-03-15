@@ -6,9 +6,15 @@ jobs:
       - image: 'cimg/openjdk:25.0.1'
     steps:
       - checkout
+      - git-shallow-clone/checkout_advanced:
+          clone_options: '--filter=blob:none'
+      - run:
+          name: "Git fetch"
+          command: git fetch --no-filter --refetch
       - run:
           name: Analyze on SonarCloud
-          command: mvn verify sonar:sonar -DskipTests
+          command: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DskipTests
+
   test:
     executor: machine_executor_amd64
     steps:
@@ -28,11 +34,12 @@ jobs:
 
 orbs:
   maven: circleci/maven@2.1.1
+  git-shallow-clone: guitarrapc/git-shallow-clone@2.8.0
 
 executors:
   machine_executor_amd64:
     machine:
-      image: ubuntu-2204:2023.10.1
+      image: ubuntu-2204:current
     environment:
       architecture: "amd64"
       platform: "linux/amd64"
