@@ -9,7 +9,6 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,16 +31,22 @@ public class OrderController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
 
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper;
+    private final OrderRepository repository;
+    private final AccountClient accountClient;
+    private final CustomerClient customerClient;
+    private final ProductClient productClient;
 
-    @Autowired
-    OrderRepository repository;
-    @Autowired
-    AccountClient accountClient;
-    @Autowired
-    CustomerClient customerClient;
-    @Autowired
-    ProductClient productClient;
+    public OrderController(OrderRepository repository, 
+                         AccountClient accountClient,
+                         CustomerClient customerClient,
+                         ProductClient productClient) {
+        this.repository = repository;
+        this.accountClient = accountClient;
+        this.customerClient = customerClient;
+        this.productClient = productClient;
+        this.mapper = new ObjectMapper();
+    }
 
     @PostMapping("/")
     public Order prepare(@RequestBody Order order) {

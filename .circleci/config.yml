@@ -3,7 +3,7 @@ version: '2.1'
 jobs:
   analyze:
     docker:
-      - image: 'cimg/openjdk:25.0'
+      - image: 'cimg/openjdk:25.0.1'
     steps:
       - checkout
       - git-shallow-clone/checkout_advanced:
@@ -14,6 +14,7 @@ jobs:
       - run:
           name: Analyze on SonarCloud
           command: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DskipTests
+
   test:
     executor: machine_executor_amd64
     steps:

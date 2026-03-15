@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,10 +23,13 @@ public class AccountController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AccountController.class);
 
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper;
+    private final AccountRepository repository;
 
-    @Autowired
-    AccountRepository repository;
+    public AccountController(AccountRepository repository) {
+        this.repository = repository;
+        this.mapper = new ObjectMapper();
+    }
 
     @PostMapping("/")
     public Account add(@RequestBody Account account) {
@@ -51,12 +53,12 @@ public class AccountController {
     }
 
     @GetMapping("/{id}")
-    public Account findById(@PathVariable("id") Long id) {
+    public Account findById(@PathVariable Long id) {
         return repository.findById(id);
     }
 
     @GetMapping("/customer/{customerId}")
-    public List<Account> findByCustomerId(@PathVariable("customerId") Long customerId) {
+    public List<Account> findByCustomerId(@PathVariable Long customerId) {
         return repository.findByCustomer(customerId);
     }
 
@@ -66,7 +68,7 @@ public class AccountController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Long id) {
+    public void delete(@PathVariable Long id) {
         repository.delete(id);
     }
 

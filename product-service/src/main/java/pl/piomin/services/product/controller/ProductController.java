@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,10 +22,13 @@ public class ProductController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
 	
-	private ObjectMapper mapper = new ObjectMapper();
-	
-	@Autowired
-	ProductRepository repository;
+	private final ObjectMapper mapper;
+	private final ProductRepository repository;
+
+	public ProductController(ProductRepository repository) {
+		this.repository = repository;
+		this.mapper = new ObjectMapper();
+	}
 	
 	@PostMapping
 	public Product add(@RequestBody Product product) {
@@ -39,7 +41,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/{id}")
-	public Product findById(@PathVariable("id") Long id) {
+	public Product findById(@PathVariable Long id) {
 		return repository.findById(id);
 	}
 	
@@ -51,7 +53,7 @@ public class ProductController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Long id) {
+	public void delete(@PathVariable Long id) {
 		repository.delete(id);
 	}
 	

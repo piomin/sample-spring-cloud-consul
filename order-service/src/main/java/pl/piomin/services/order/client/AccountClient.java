@@ -9,6 +9,6 @@ import pl.piomin.services.order.model.Account;
 public interface AccountClient {
 
     @PutMapping("/withdraw/{accountId}/{amount}")
-    Account withdraw(@PathVariable("accountId") Long id, @PathVariable("amount") int amount);
+    Account withdraw(@PathVariable Long id, @PathVariable int amount);
 
 }
