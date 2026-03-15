@@ -5,9 +5,10 @@ import io.specto.hoverfly.junit5.HoverflyExtension;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.client.RestTestClient;
-import org.springframework.web.context.WebApplicationContext;
 import org.testcontainers.consul.ConsulContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -26,14 +27,11 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
 @ExtendWith(HoverflyExtension.class)
+@AutoConfigureRestTestClient
 public class OrderControllerTest {
 
+    @Autowired
     RestTestClient restClient;
-
-    public OrderControllerTest(WebApplicationContext context) {
-        this.restClient = RestTestClient.bindToApplicationContext(context)
-                .build();
-    }
 
     @Container
     static ConsulContainer consulContainer = new ConsulContainer("consul:1.15")
